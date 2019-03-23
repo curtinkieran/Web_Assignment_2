@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="UTF-8">
+        <title>
+            Nobel Prize Winners
+        </title>
+        <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
+        <style>
+            body{
+                background-color:floralwhite;
+            }
+            h1{
+                text-align: center;
+                font-family: 'Amatic SC', cursive;
+                font-size: 220%;
+            }
+            h2, p{
+                font-family: 'Amatic SC', cursive;
+                font-size: 150%;
+                text-align: center;
+            }
+            #error{
+                font-family: monospace;
+                font-style: italic;
+                font-size: 170%;
+                color: red;
+                border-radius: 5px;
+                width: inherit;
+            }
+            #intro{
+                padding-left: 10%;
+                padding-right: 10%;
+            }
+            /*Here I am styling date, category, and country to all display on the same line/level*/
+            #date{
+                float: left;
+                margin-left: 12%;
+            }
+            #cat{
+                float: left;
+                margin-left: 12%;
+            }
+            #CoB{
+                float: left;
+                margin-left: 12%;
+            }
+            #clear{
+                clear:left;
+            }
+            .centre{
+                text-align: center;
+            }
+            /*Styling dropdown menus*/
+            option, select{
+                font-family: 'Amatic SC', cursive;
+                font-size: 150%;
+            }
+            /*Styling the "submit button"*/
+            #submit{
+                width: 30%;
+                font-family:monospace;
+                background-color: seagreen;
+                color: white;
+                font-size: 140%;
+                padding: 2%;
+                margin-left: 35%;
+                border-radius: 20px;
+            }
+            /*more info button styling*/
+            button{
+                width: 30%;
+                font-family:monospace;
+                background-color: seagreen;
+                color: white;
+                font-size: 70%;
+                padding: 2%;
+                border-radius: 15px;
+            }
+            /*Styling and positioning the group of radio buttons*/
+            form{
+                font-family: 'Amatic SC', cursive;
+                font-size: 140%;
+                padding-left: 38%;
+                padding-top: 3%;
+            }
+            /* Positioning the radio buttons individually*/
+            #male, #female{
+                margin-left: 3%;
+            }
+            #showHide{
+                display: none;
+            }
+            /*Styling the table*/
+            table{
+                border-collapse: collapse;
+                width: 90%;
+                font-family: 'Amatic SC', cursive;
+                font-size: 160%;
+                margin: 5%;
+                margin-bottom: 10%;
+            }
+            table, th, td{
+                border: 1px solid black;
+                margin-top: 0;
+                margin-bottom: 0;
+                padding-top: 1%;
+                padding-bottom: 1%;
+            }
+            th{
+                background-color: seagreen;
+                color: white;
+                font-size: 170%;
+                width: 33%;
+            }
+            td{
+                padding-left:2%;
+                text-align: center;
+                width: 33%;
+            }
+            ul{
+                display: none;
+                padding-left: 7%;
+                padding-right: 65%;
+                font-family: monospace;
+            }
+        </style>
+    </head>
+    <body onload="fillYears()"><!--populate the year dropdown menus-->
+        <h1>Nobel Prize Winners</h1>
+        <div id="intro"><p>Welcome to knowbelprize.com!  Here you get the opportunity to <i>know</i> more information about all of the past winners of this most prestigious scientific award.  You can access many details about individual nobel prize winners from 1901 to 2018.  Please select your search criteria from the options displayed below.</p></div>
+        <!--error message to display here if invalid date range entered-->
+        <p id="error"></p>
+        <div id="date">
+        <h2>Enter a date (required)</h2>
+            <p class="centre"> From <select id="FROM">
+                <option value ="Select">Select Date</option></select></p>
+            <p class="centre"> To <select id="TO">
+                <option value ="Select">Select Date</option></select></p>
+        </div>
+        <!--Example for Selet Box taken from w3schools.  There were only 6 categories to choose from so I hard coded these-->
+        <div id="cat">
+            <h2> Select Category</h2>
+            <select id="select">
+                <option class = "categories" value="NoSelect">Select Category</option>
+                <option class = "categories" value="physics">Physics</option>
+                <option class = "categories" value="chemistry">Chemistry</option>
+                <option class = "categories" value="medicine">Medicine</option>
+                <option class = "categories" value="literature">Literature</option>
+                <option class = "categories" value="peace">Peace</option>
+                <option class = "categories" value="economics">Economics</option>
+            </select>
+        </div>
+        <!-- Country of birth was attempted by making an array from the JSON containing only unique countries, but I was not successful. Instead, I extracted all of the country of birth data from the JSON file by printing it into a table first, then ordered it alphabeticaly.  I then individually entered each place, leaving out duplicates.  This was time consuming and inefficient, but it is functional and it works.-->
+        <div id="CoB">
+        <h2>Select Country of Birth</h2>
+            <select id="selectCoB">
+                <option value="Select Country">Select Country</option>
+                <option value="Argentina">Argentina</option>
+                <option value="Australia">Australia</option>
+                <option value="Austria">Austria</option>
+                <option value="Austria-Hungary (now Austria)">Austria-Hungary (now Austria)</option>
+                <option value="Austria-Hungary (now Bosnia and Herzegovina)">Austria-Hungary (now Bosnia and Herzegovina)</option>
+                <option value="Austria-Hungary (now Croatia)">Austria-Hungary (now Croatia)</option>
+                <option value="Austria-Hungary (now Czech Republic)">Austria-Hungary (now Czech Republic)</option>
+                <option value="Austria-Hungary (now Hungary)">Austria-Hungary (now Hungary)</option>
+                <option value="Austria-Hungary (now Poland)">Austria-Hungary (now Poland)</option>
+                <option value="Austria-Hungary (now Slovenia)">Austria-Hungary (now Slovenia)</option>
+                <option value="Austria-Hungary (now Ukraine)">Austria-Hungary (now Ukraine)</option>
+                <option value="">Austrian Empire (now Austria)</option>
+                <option value="Austrian Empire (now Austria)">Austrian Empire (now Czech Republic)</option>
+                <option value="Austrian Empire (now Italy)">Austrian Empire (now Italy)</option>
+                <option value="Bavaria (now Germany)">Bavaria (now Germany)</option>
+                <option value="Belgium">Belgium</option>
+                <option value="Bosnia (now Bosnia and Herzegovina)">Bosnia (now Bosnia and Herzegovina)</option>
+                <option value="British India (now Bangladesh)">British India (now Bangladesh)</option>
+                <option value="British India (now India)">British India (now India)</option>
+                <option value="British Mandate of Palestine (now Israel)">British Mandate of Palestine (now Israel)</option>
+                <option value="British Protectorate of Palestine (now Israel)">British Protectorate of Palestine (now Israel)</option>
+                <option value="British West Indies (now Saint Lucia)">British West Indies (now Saint Lucia)</option>
+                <option value="Bulgaria">Bulgaria</option>
+                <option value="Burma (now Myanmar)">Burma (now Myanmar)</option>
+                <option value="Canada">Canada</option>
+                <option value="Chile">Chile</option>
+                <option value="China">China</option>
+                <option value="Colombia">Colombia</option>
+                <option value="Costa Rica">Costa Rica</option>
+                <option value="Crete (now Greece)">Crete (now Greece)</option>
+                <option value="Cyprus">Cyprus</option>
+                <option value="Czechoslovakia (now Czech Republic)<">Czechoslovakia (now Czech Republic)</option>
+                <option value="Denmark">Denmark</option>
+                <option value="East Friesland (now Germany)">East Friesland (now Germany)</option>
+                <option value="East Timor">East Timor</option>
+                <option value="Egypt">Egypt</option>
+                <option value="Faroe Islands (Denmark)">Faroe Islands (Denmark)</option>
+                <option value="Finland">Finland</option>
+                <option value="France">France</option>
+                <option value="Free City of Danzig (now Poland)">Free City of Danzig (now Poland)</option>
+                <option value="French Algeria (now Algeria)">French Algeria (now Algeria)</option>
+                <option value="German-occupied Poland (now Poland)">German-occupied Poland (now Poland)</option>
+                <option value="Germany">Germany</option>
+                <option value="Germany (now France)">Germany (now France)</option>
+                <option value="Germany (now Poland)">Germany (now Poland)</option>
+                <option value="Germany (now Russia)">Germany (now Russia)</option>
+                <option value="Gold Coast (now Ghana)">Gold Coast (now Ghana)</option>
+                <option value="Guadeloupe Island">Guadeloupe Island</option>
+                <option value="Guatemala">Guatemala</option>
+                <option value="Hesse-Kassel (now Germany)">Hesse-Kassel (now Germany)</option>
+                <option value="Hungary">Hungary</option>
+                <option value="Hungary (now Slovakia)">Hungary (now Slovakia)</option>
+                <option value="Iceland">Iceland</option>
+                <option value="India">India</option>
+                <option value="India (now Pakistan)">India (now Pakistan)</option>
+                <option value="Iran">Iran</option>
+                <option value="Ireland">Ireland</option>
+                <option value="Italy">Italy</option>
+                <option value="Japan">Japan</option>
+                <option value="Java, Dutch East Indies (now Indonesia)">Java, Dutch East Indies (now Indonesia)</option>
+                <option value="Kenya">Kenya</option>
+                <option value="Korea (now South Korea)">Korea (now South Korea)</option>
+                <option value="Liberia">Liberia</option>
+                <option value="Lithuania">Lithuania</option>
+                <option value="Luxembourg">Luxembourg</option>
+                <option value="Madagascar">Madagascar</option>
+                <option value="Mecklenburg (now Germany)">Mecklenburg (now Germany)</option>
+                <option value="Mexico">Mexico</option>
+                <option value="Morocco">Morocco</option>
+                <option value="New Zealand">New Zealand</option>
+                <option value="Nigeria">Nigeria</option>
+                <option value="Northern Ireland">Northern Ireland</option>
+                <option value="Norway">Norway</option>
+                <option value="Ottoman Empire (now Republic of Macedonia)">Ottoman Empire (now Republic of Macedonia)</option>
+                <option value="Ottoman Empire (now Turkey)">Ottoman Empire (now Turkey)</option>
+                <option value="Pakistan">Pakistan</option>
+                <option value="Persia (now Iran)">Persia (now Iran)</option>
+                <option value="Peru">Peru</option>
+                <option value="Poland">Poland</option>
+                <option value="Poland (now Belarus)">Poland (now Belarus)</option>
+                <option value="Poland (now Lithuania)">Poland (now Lithuania)</option>
+                <option value="Poland (now Ukraine)">Poland (now Ukraine)</option>
+                <option value="Portugal">Portugal</option>
+                <option value="Prussia (now Germany)">Prussia (now Germany)</option>
+                <option value="Prussia (now Poland)">Prussia (now Poland)</option>
+                <option value="Prussia (now Russia)">Prussia (now Russia)</option>
+                <option value="Romania">Romania</option>
+                <option value="Russia">Russia</option>
+                <option value="Russian Empire (now Azerbaijan)">Russian Empire (now Azerbaijan)</option>
+                <option value="Russian Empire (now Belarus)">Russian Empire (now Belarus)</option>
+                <option value="Russian Empire (now Finland)">Russian Empire (now Finland)</option>
+                <option value="Russian Empire (now Latvia)">Russian Empire (now Latvia)</option>
+                <option value="Russian Empire (now Lithuania)">Russian Empire (now Lithuania)</option>
+                <option value="Russian Empire (now Poland)">Russian Empire (now Poland)</option>
+                <option value="Russian Empire (now Russia)">Russian Empire (now Russia)</option>
+                <option value="Russian Empire (now Ukraine)">Russian Empire (now Ukraine)</option>
+                <option value="Saint Lucia">Saint Lucia</option>
+                <option value="Schleswig (now Germany)">Schleswig (now Germany)</option>
+                <option value="Scotland">Scotland</option>
+                <option value="South Africa">South Africa</option>
+                <option value="Southern Rhodesia (now Zimbabwe)">Southern Rhodesia (now Zimbabwe)</option>
+                <option value="Spain">Spain</option>
+                <option value="Sweden">Sweden</option>
+                <option value="Switzerland">Switzerland</option>
+                <option value="Taiwan">Taiwan</option>
+                <option value="Tibet (now People's Republic of China)">Tibet (now People's Republic of China)</option>
+                <option value="Turkey">Turkey</option>
+                <option value="Tuscany (now Italy)">Tuscany (now Italy)</option>
+                <option value="USA">USA</option>
+                <option value="USSR (now Belarus)">USSR (now Belarus)</option>
+                <option value="USSR (now Russia)">USSR (now Russia)</option>
+                <option value="Ukraine">Ukraine</option>
+                <option value="United Kingdom">United Kingdom</option>
+                <option value="Venezuela">Venezuela</option>
+                <option value="Vietnam">Vietnam</option>
+                <option value="West Germany (now Germany)">West Germany (now Germany)</option>
+                <option value="Württemberg (now Germany)">Württemberg (now Germany)</option>
+                <option value="Yemen">Yemen</option>
+                <option value="the Netherlands">the Netherlands</option>
+            </select>
+        </div>
+        <!-- Submit button to call function and filter results based on user input-->
+        <div id="clear">
+        <button id="submit" type="button" onclick="checkDate()">Submit</button>
+        </div>
+        <!-- Radio buttons for filtering by gender/all-->
+        <div id="showHide">
+        <form>
+            <input id="both" type="radio" name="gender" value="both" onclick="radioButtons()">Both
+            <input id="male" type="radio" name="gender" value="male" onclick="radioButtons()"> Male Only
+            <input id="female" type="radio" name="gender" value="female" onclick="radioButtons()"> Female Only
+        </form>
+        </div>
+        <br>
+        <br>
+        <!-- The results will be displayed here-->
+        <div id="result">
+        </div>
+        <script>
+            //getting the JSON file
+            var xmlhttp = new XMLHttpRequest();
+            var url = "nobel.JSON";
+            //declare global variable to be used outside the function
+            parsedObj = "";
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
+                //Parse JSON data to JavaScript variable
+                parsedObj = JSON.parse(xmlhttp.responseText); 
+                }
+            }
+            xmlhttp.open("GET", url, true);
+            xmlhttp.send();
+            //completed getting JSON file
+            function fillYears(){
+                fillFrom();
+                fillTo();
+            }
+            // I generated the dropdown years menu by following the example on https://stackoverflow.com/questions/19731767/to-generate-years-automatically-in-javascript-dropdown
+            function fillFrom(){
+                var min = 1901;
+                var max = 2018;
+                var from = document.getElementById("FROM");
+                for (var i = min ; i <= max; i++){
+                    var option = document.createElement('option');
+                    option.value= i;
+                    option.innerHTML= i;
+                    from.appendChild(option);
+                }
+            }
+            function fillTo(){
+                var min = 1901;
+                var max = 2018;
+                var to = document.getElementById("TO");
+                for (var i = min ; i <= max; i++){
+                    var option = document.createElement('option');
+                    option.value= i;
+                    option.innerHTML= i;
+                    to.appendChild(option);
+                }
+            }
+            //my first error handeling is to check that the dates entered are compatible
+            //I got the value of the selected year by following example on https://stackoverflow.com/questions/1085801/get-selected-value-in-dropdown-list-using-javascript
+            function checkDate(){
+                var message = "";
+                var yearFrom = document.getElementById("FROM");
+                var yearTo = document.getElementById("TO");
+                var selFrom = yearFrom.options[yearFrom.selectedIndex].value;
+                var selTo = yearTo.options[yearTo.selectedIndex].value;
+                if (selFrom > selTo){
+                    //display message to screen
+                    message += "**Please change your date range.  Year 'From' can not be before year 'To'!**";
+                    document.getElementById("error").innerHTML = message;
+                    //clear the contents of "result" in case this is the second time a search is being made
+                    document.getElementById("result").innerHTML = "";
+                }
+                //I tried to get it to print an error if user did not select a date range but I could not do this successfully.
+                else if (selFrom == "Select" || selTo == "Select"){
+                    message += "**Please select a date range**";
+                    document.getElementById("error").innerHTML = message;
+                    //clear the contents of "result" in case this is the second time a search is being made
+                    document.getElementById("result").innerHTML = "";
+                }
+                else if (selFrom <= selTo){
+                    //here I am calling the "printing table" function, once error handeling has been completed, and also getting rid of the error message that may have previously have been shown.
+                    document.getElementById("error").innerHTML = "";
+                    //only give user option to select male/female once table has been displayed.
+                    document.getElementById("showHide").style.display = "block";
+                    myFunction(parsedObj);
+                    window.scrollBy(0, 220);
+                }
+                }
+            //This is the large funtion that will print the results in a table 
+            function myFunction(obj){
+                var text = "<table border=1> <th>Name</th><th>Year</th><th>Category</th> </table>";
+                //declaring the information that the user has selected
+                var yearFrom = document.getElementById("FROM");
+                var yearTo = document.getElementById("TO");
+                var fromValue = yearFrom.options[yearFrom.selectedIndex].value;
+                var toValue = yearTo.options[yearTo.selectedIndex].value;
+                var selCat = document.getElementById("select");
+                var selVal = selCat.options[selCat.selectedIndex].value;
+                var selCoB = document.getElementById("selectCoB");
+                var CoBValue = selCoB.options[selCoB.selectedIndex].value;
+                
+                //get the laureats object from the JSON file
+                var laureates = obj.laureates;
+                //get rid of all the objects that are "undefined/undefined".  Found by inspecting the JSON.
+                laureates.splice(869, 6);
+                //doing a for loop for each object in the array
+                for ( var i=0; i < laureates.length; i++){
+                //get the info from the laureates
+                var id = laureates[i].id;
+                var firstname = laureates[i].firstname;
+                var surname = laureates[i].surname;
+                var born = laureates[i].born ;
+                var died = laureates[i].died ;
+                var bornCountry = laureates[i].bornCountry ;
+                var bornCountryCode = laureates[i].bornCountryCode ;
+                var bornCity = laureates[i].bornCity;
+                var diedCountry = laureates[i].diedCountry ;
+                var diedCountryCode = laureates[i].diedCountryCode ;
+                var diedCity = laureates[i].diedCity ;
+                var gender = laureates[i].gender ;
+                var prizes = laureates[i].prizes;
+                var year = prizes[0].year;
+                var category = prizes[0].category;
+                var share = prizes[0].share;
+                var motivation = prizes[0].motivation;
+                var affiliations = prizes[0].affiliations;
+                var a1 = affiliations[0].name;
+                var a2 = affiliations[0].city;
+                var a3 = affiliations[0].country;
+                if (prizes[1]){
+                    var year2 = prizes[1].year;
+                    var category2 = prizes[1].category;
+                    var motivation2 = prizes[1].motivation;
+                    var affiliations2 = prizes[1].affiliations;
+                    var aa1 = affiliations2[0].name;
+                    var aa2 = affiliations2[0].city;
+                    var aa3 = affiliations2[0].country;
+                }
+                    
+                if (year >= fromValue && year <= toValue || year2 >= fromValue && year2 <= toValue){
+                    if (selVal == "NoSelect" || selVal == category){
+                        if (CoBValue == "Select Country" || CoBValue == bornCountry){
+                            text += "<table border=1>";
+                            //assigning class to rows for show/hide gender radio buttons
+                            if(gender == "male"){
+                                text += "<tr class=\"male\"><td>" + firstname + " " + surname + "<br> <button type=\"button\" onclick=\"extra(" + i + ")\"> More Info! </button></td>";
+                            }
+                            else if(gender == "female"){
+                                    text += "<tr class='female'><td>" + firstname + " " + surname + "<br> <button type=\"button\" onclick=\"extra(" + i + ")\"> More Info! </button></td>";
+                            }
+                            else{
+                                    text += "<tr class='all'><td>" + firstname + " " + "<br> <button type=\"button\"  onclick=\"extra(" + i + ")\"> More Info! </button></td>";
+                                }
+                            //for people who have won more than 1 nobel prize
+                            if(prizes[1]){
+                                text += "<td>" + prizes[1].year + "</td>";
+                                text += "<td>" + prizes[1].category + "</td></tr><tr class ='" + gender + "'><td>" + firstname + " " + surname + "<br> <button type =\"button\" onclick=\"extra(" + i + ")\"> More Info! </button></td>";
+                            }
+                            text += "<td>" + year + "</td>";
+                            text += "<td>" + category + "</td></tr></table>";
+                            
+                            text += "<ul id ='" + i + "'>";
+                            text += "<li> Born: " + born + "</li>";
+                            //check if this is applicable (died)
+                            if (died != "0000-00-00"){
+                            text += "<li> Died: " + died + "</li>";}
+                            text += "<li> Born in: " + bornCity + "</li>";
+                            //check if their motivation is undefined
+                            if(motivation != undefined){
+                            text += "<li> Motivation: " + motivation + "</li>";}
+                            //check if they are affiliated with an institution
+                            if (a1 != undefined){
+                            text += "<li> Affiliated with: " + a1 + ", " + a2 + ", " + a3 + "</li>";}
+                            //if the person has 2 prizes, the second set of extra info is printed.
+                            if (prizes[1]){
+                                text += "<li> Motivation(2): " + motivation2 + "</li>";
+                                text += "<li> Affiliated with: " + aa1 + ", " + aa2 + ", " + aa3 + "</li>"; 
+                            }
+                            text += "</ul>";
+                            
+                            }
+                            }
+                        }   
+                    }
+                //Display all the results in the table.
+                document.getElementById("result").innerHTML = text;
+                //call function to restore all the dropdown select boxes
+                resetSelected();
+            }
+            //Filter results by male/female/all
+            function radioButtons(){
+                var maleArray = document.getElementsByClassName("male");
+                var femaleArray = document.getElementsByClassName("female");
+                var all = document.getElementsByClassName("all")
+                if (document.getElementById("male").checked){
+                    for (var i= 0; i < maleArray.length; i++){
+                        maleArray[i].style.display="table-row";
+                    }
+                    for (var i= 0; i < femaleArray.length; i++){
+                        femaleArray[i].style.display="none";
+                    }
+                    for ( var i = 0; i < all.length; i++){
+                        all[i].style.display = "none";
+                    }
+                }
+                if (document.getElementById("female").checked){
+                    for ( var i = 0; i < femaleArray.length; i++){
+                        femaleArray[i].style.display="table-row";
+                    }
+                    for ( var i = 0; i < maleArray.length; i++){
+                        maleArray[i].style.display="none";
+                    }
+                    for (var i = 0; i < all.length; i++){
+                        all[i].style.display = "none";
+                    }
+                }
+                if (document.getElementById("both").checked){
+                    for (var i = 0; i < all.length; i++){
+                        all[i].style.display = "table-row";
+                    }
+                    for (var i = 0; i < maleArray.length; i++){
+                        maleArray[i].style.display = "table-row";
+                    }
+                    for (var i = 0; i < femaleArray.length; i++){
+                        femaleArray[i].style.display = "table-row";
+                    }
+                }
+                //If more info is displayed, then the user wants to change to "female only"
+                //the <ul> will still be dislayed.  This sets all "extra info" to display none
+                //so when they view the results of "female only, it presents as a complete table.
+                for (var i = 0; i < document.getElementsByTagName("UL").length; i++)
+                document.getElementsByTagName("UL")[i].style.display = "none";
+            }
+            //This function resets the selected dropdown menus in preparation for another search.
+            function resetSelected(){
+                var yearFrom = document.getElementById("FROM");
+                var yearTo = document.getElementById("TO");
+                var selCat = document.getElementById("select");
+                var selCoB = document.getElementById("selectCoB");
+                //This will automatically return the radio button to "both" if another search is made.
+                document.getElementById("both").checked = true;
+                //change everything back to the way it was on page load
+                yearFrom.selectedIndex = 0;
+                yearTo.selectedIndex = 0;
+                selCat.selectedIndex = 0;
+                selCoB.selectedIndex = 0;
+            }
+            //shows extra information.  Will also hide the info if the button is pressed again.
+            function extra(i){
+                var x = document.getElementById(i);
+                if (x.style.display == "block"){
+                    x.style.display = "none";
+                }else{
+                    x.style.display = "block";
+                }
+            }
+        </script>
+    </body>
+</html>
